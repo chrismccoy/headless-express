@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <!-- 
+      THE FIX: The leading slash '/' is crucial. 
+      It makes the path absolute to the domain root.
+      Without it, on "/page/2", the browser would look for "/page/css/style.css" which is wrong.
+    -->
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="bg-gray-50">
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-10 border-b border-gray-200">
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+          <a href="/" class="text-2xl font-bold text-gray-900 hover:text-indigo-600 transition-colors">
+            Modern Blog
+          </a>
+          <nav>
+            <a href="/" class="text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
+          </nav>
+        </div>
+      </div>
+    </header>

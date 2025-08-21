@@ -1,0 +1,41 @@
+<%- include('partials/_header') %>
+
+<!-- Main content area with sidebar layout -->
+<div class="container mx-auto p-4 md:p-8">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+    <!-- Main content column -->
+    <main class="lg:col-span-2">
+      <article class="bg-white p-6 md:p-10 rounded-lg shadow-lg">
+        <% 
+          // ROBUSTNESS FIX: Check for post._embedded first!
+          const featuredMedia = post._embedded && post._embedded['wp:featuredmedia'];
+          const placeholderUrl = 'https://placehold.co/1200x600/e2e8f0/475569?text=Featured+Image';
+          const imageUrl = featuredMedia ? featuredMedia[0].source_url : placeholderUrl;
+        %>
+
+        <img src="<%= imageUrl %>" alt="<%- post.title.rendered %>" class="w-full h-auto object-cover rounded-lg mb-8">
+
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
+          <%- post.title.rendered %>
+        </h1>
+
+        <div class="text-gray-500 mb-8 border-y py-3">
+          <!-- ROBUSTNESS FIX: Check for author data -->
+          <span>By <strong><%= post._embedded && post._embedded.author ? post._embedded.author[0].name : 'Unknown Author' %></strong></span> &bull;
+          <span>Published on <%= new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+        </div>
+
+        <div class="prose prose-lg max-w-none prose-indigo prose-a:text-indigo-600 hover:prose-a:text-indigo-800">
+          <%- post.content.rendered %>
+        </div>
+      </article>
+    </main>
+
+    <!-- Sidebar column -->
+    <div class="lg:col-span-1">
+      <%- include('partials/_sidebar', { categories, recentPosts }) %>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/_footer') %>

@@ -1,0 +1,39 @@
+<aside class="space-y-10">
+  <!-- Recent Posts Widget -->
+  <div>
+    <h3 class="text-xl font-bold text-gray-900 mb-4 border-b pb-2">Recent Posts</h3>
+    <ul class="space-y-3">
+      <% if (recentPosts && recentPosts.length > 0) { %>
+        <% recentPosts.forEach(post => { %>
+          <li>
+            <a href="/post/<%= post.slug %>" class="font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-200">
+              <%- post.title.rendered %>
+            </a>
+            <p class="text-sm text-gray-500"><%= new Date(post.date).toLocaleDateString() %></p>
+          </li>
+        <% }) %>
+      <% } else { %>
+        <li class="text-gray-500">No recent posts.</li>
+      <% } %>
+    </ul>
+  </div>
+
+  <!-- Categories Widget -->
+  <div>
+    <h3 class="text-xl font-bold text-gray-900 mb-4 border-b pb-2">Categories</h3>
+    <ul class="space-y-2">
+      <% if (categories && categories.length > 0) { %>
+        <% categories.forEach(category => { %>
+          <li>
+            <a href="/category/<%= category.slug %>" class="flex justify-between items-center text-gray-800 hover:text-indigo-600 transition-colors duration-200">
+              <span><%- category.name %></span>
+              <span class="text-sm text-gray-500 bg-gray-100 px-2 py-0.5 rounded"><%= category.count %></span>
+            </a>
+          </li>
+        <% }) %>
+      <% } else { %>
+        <li class="text-gray-500">No categories found.</li>
+      <% } %>
+    </ul>
+  </div>
+</aside>

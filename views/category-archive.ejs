@@ -1,0 +1,50 @@
+<%- include('partials/_header') %>
+
+<!-- Main content area with sidebar layout -->
+<div class="container mx-auto p-4 md:p-8">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+    <!-- Main content column -->
+    <main class="lg:col-span-2">
+      <div class="mb-12 border-b pb-6">
+        <p class="text-lg font-semibold text-indigo-600">Browsing Category</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mt-1"><%- category.name %></h1>
+        <% if (category.description) { %>
+          <p class="mt-4 text-lg text-gray-600"><%- category.description %></p>
+        <% } %>
+      </div>
+
+      <!-- Minimalist post list -->
+      <div class="space-y-8">
+        <% if (posts && posts.length > 0) { %>
+          <% posts.forEach(post => { %>
+            <article class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+              <!-- Date is now first and styled as a block element -->
+              <time datetime="<%= new Date(post.date).toISOString() %>" class="block text-sm text-gray-500">
+                <%= new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %>
+              </time>
+              <!-- Title is second, with a top margin for padding -->
+              <h2 class="text-2xl font-bold text-gray-800 mt-2">
+                <a href="/post/<%= post.slug %>" class="hover:text-indigo-600 transition-colors duration-200">
+                  <%- post.title.rendered %>
+                </a>
+              </h2>
+            </article>
+          <% }) %>
+        <% } else { %>
+          <p class="text-center text-gray-500 py-10">No posts found in this category.</p>
+        <% } %>
+      </div>
+
+      <!-- Pagination Component -->
+      <%- include('partials/_pagination', { currentPage, totalPages, baseUrl: `/category/${category.slug}/page/` }) %>
+
+    </main>
+
+    <!-- Sidebar column -->
+    <div class="lg:col-span-1">
+      <%- include('partials/_sidebar', { categories, recentPosts }) %>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/_footer') %>
