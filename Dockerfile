@@ -6,7 +6,7 @@ COPY package*.json ./
 COPY . .
 
 RUN npm install
-RUN npm run build
+RUN npm run build:css
 
 EXPOSE 3000
 
